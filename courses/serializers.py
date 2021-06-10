@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelField):
 class CategorySerializer(serializers.ModelField):
     class Meta:
         model = Category
-        fields = ("name")
+        fields = ("id", "name")
         
 class CourseSerializer(serializers.ModelField):
     
@@ -21,7 +21,7 @@ class CourseSerializer(serializers.ModelField):
     
     class Meta:
         model = Course
-        fields = ("name", "description", "category", "thumbnail",) 
+        fields = ("id", "name", "description", "category", "thumbnail",) 
         
     def get_thumbnail(self, course):
         request = self.context.get('request')
@@ -36,7 +36,7 @@ class LessonSerializer(serializers.ModelField):
     
     class Meta:
         model = Lesson
-        fields = ("title", "descripion", "lesson", "course",) 
+        fields = ("id", "title", "descripion", "lesson", "course",) 
         
         
 class ProfileSerializer(serializers.ModelField):
@@ -45,7 +45,7 @@ class ProfileSerializer(serializers.ModelField):
     
     class Meta:
         model = Profile
-        fields = ("avatar", "first_name", "last_name",) 
+        fields = ("id", "avatar", "first_name", "last_name",) 
         
     def get_avatar(self, profile):
         request = self.context.get('request')
@@ -61,10 +61,75 @@ class ProgressSerializer(serializers.ModelField):
     
     class Meta:
         model = Progress
-        fields = ("profile", "course", "lesson",) 
+        fields = ("id", "profile", "course", "lesson",) 
         
         
 class RegisterCourseSerializer(serializers.ModelField):
+    
+    profile = ProfileSerializer(many = False)
+    course = CourseSerializer(many = False)
+            
+    class Meta:
+        model: RegisteredCourses
+        fields = ("id", "profile", "course",) 
+        
+        
+# List Models Serializers
+class ListCategorySerializer(serializers.ModelField):
+    class Meta:
+        model = Category
+        fields = ("name")
+        
+class ListCourseSerializer(serializers.ModelField):
+    
+    thumbnail = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Course
+        fields = ("name", "description", "category", "thumbnail",) 
+        
+    def get_thumbnail(self, course):
+        request = self.context.get('request')
+        thumbnail = course.thumbnail.url
+        
+        return request.build_absolute_uri(thumbnail)
+    
+    
+class ListLessonSerializer(serializers.ModelField):
+    
+    course = CourseSerializer(many = False)
+    
+    class Meta:
+        model = Lesson
+        fields = ("title", "descripion", "lesson", "course",) 
+        
+        
+class ListProfileSerializer(serializers.ModelField):
+    
+    avatar = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Profile
+        fields = ("avatar", "first_name", "last_name",) 
+        
+    def get_avatar(self, profile):
+        request = self.context.get('request')
+        avatar = profile.avatar.url
+        
+        return request.build_absolute_uri(avatar)
+    
+    
+class ListProgressSerializer(serializers.ModelField):
+    profile = ProfileSerializer(many = False)
+    course = CourseSerializer(many = False)
+    lesson = LessonSerializer(many = False)
+    
+    class Meta:
+        model = Progress
+        fields = ("profile", "course", "lesson",) 
+        
+        
+class ListRegisterCourseSerializer(serializers.ModelField):
     
     profile = ProfileSerializer(many = False)
     course = CourseSerializer(many = False)
