@@ -4,18 +4,18 @@ from rest_framework import serializers
 
 from .models import Category, Course, Lesson, Profile, Progress, RegisteredCourses
 
-class UserSerializer(serializers.ModelField):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("username","email",)
         
         
-class CategorySerializer(serializers.ModelField):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "name")
         
-class CourseSerializer(serializers.ModelField):
+class CourseSerializer(serializers.ModelSerializer):
     
     thumbnail = serializers.SerializerMethodField()
     
@@ -30,16 +30,16 @@ class CourseSerializer(serializers.ModelField):
         return request.build_absolute_uri(thumbnail)
     
     
-class LessonSerializer(serializers.ModelField):
+class LessonSerializer(serializers.ModelSerializer):
     
-    course = CourseSerializer(many = False)
+    course = CourseSerializer(many=False)
     
     class Meta:
         model = Lesson
         fields = ("id", "title", "descripion", "lesson", "course",) 
         
         
-class ProfileSerializer(serializers.ModelField):
+class ProfileSerializer(serializers.ModelSerializer):
     
     avatar = serializers.SerializerMethodField()
     
@@ -54,7 +54,7 @@ class ProfileSerializer(serializers.ModelField):
         return request.build_absolute_uri(avatar)
     
     
-class ProgressSerializer(serializers.ModelField):
+class ProgressSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many = False)
     course = CourseSerializer(many = False)
     lesson = LessonSerializer(many = False)
@@ -64,7 +64,7 @@ class ProgressSerializer(serializers.ModelField):
         fields = ("id", "profile", "course", "lesson",) 
         
         
-class RegisterCourseSerializer(serializers.ModelField):
+class RegisterCourseSerializer(serializers.ModelSerializer):
     
     profile = ProfileSerializer(many = False)
     course = CourseSerializer(many = False)
@@ -75,12 +75,12 @@ class RegisterCourseSerializer(serializers.ModelField):
         
         
 # List Models Serializers
-class ListCategorySerializer(serializers.ModelField):
+class ListCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("name")
         
-class ListCourseSerializer(serializers.ModelField):
+class ListCourseSerializer(serializers.ModelSerializer):
     
     thumbnail = serializers.SerializerMethodField()
     
@@ -95,7 +95,7 @@ class ListCourseSerializer(serializers.ModelField):
         return request.build_absolute_uri(thumbnail)
     
     
-class ListLessonSerializer(serializers.ModelField):
+class ListLessonSerializer(serializers.ModelSerializer):
     
     course = CourseSerializer(many = False)
     
@@ -104,7 +104,7 @@ class ListLessonSerializer(serializers.ModelField):
         fields = ("title", "descripion", "lesson", "course",) 
         
         
-class ListProfileSerializer(serializers.ModelField):
+class ListProfileSerializer(serializers.ModelSerializer):
     
     avatar = serializers.SerializerMethodField()
     
@@ -119,7 +119,7 @@ class ListProfileSerializer(serializers.ModelField):
         return request.build_absolute_uri(avatar)
     
     
-class ListProgressSerializer(serializers.ModelField):
+class ListProgressSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many = False)
     course = CourseSerializer(many = False)
     lesson = LessonSerializer(many = False)
@@ -129,7 +129,7 @@ class ListProgressSerializer(serializers.ModelField):
         fields = ("profile", "course", "lesson",) 
         
         
-class ListRegisterCourseSerializer(serializers.ModelField):
+class ListRegisterCourseSerializer(serializers.ModelSerializer):
     
     profile = ProfileSerializer(many = False)
     course = CourseSerializer(many = False)

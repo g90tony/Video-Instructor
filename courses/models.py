@@ -1,7 +1,7 @@
 import courses
 from django.db import models
+from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
-from django.db.models.base import Model
 from django.db.models.fields import CharField, TextField
 from django.db.models.fields.related import ForeignKey
 
@@ -10,6 +10,7 @@ class Profile(models.Model):
     avatar = CloudinaryField('image', default=None)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -52,8 +53,8 @@ class Lesson(models.Model):
         
         
 class RegisteredCourses(models.Model):
-    profile = models.ForeignKey(Profile)
-    course = models.ForeignKey(Course)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     progress = models.IntegerField(default=0)
     
     def register_course(self):

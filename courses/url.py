@@ -20,12 +20,12 @@ from django.urls.conf import include
 from . import views as API_ROUTES
 
 urlpatterns = [
-    path('', view=API_ROUTES.index(), name='Home'),
+    path('', view=API_ROUTES.index, name='Home'),
     
     path('api/categories/', view=API_ROUTES.ListCategory.as_view()),
     
     path('api/courses/<int:courses_id>', view=API_ROUTES.SingleCourse.as_view()),
-    path('api/courses/', view=API_ROUTES.ListCourse.as_view()),
+    path('api/courses/', view=API_ROUTES.ListCourses.as_view()),
     path('api/courses/search', view=API_ROUTES.SearchCourses.as_view()),
     
     path('api/lesson/<int:lesson_id>', view=API_ROUTES.ListLessons.as_view()),

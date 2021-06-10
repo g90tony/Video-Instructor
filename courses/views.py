@@ -44,7 +44,7 @@ class ListCategory(APIView):
 # Endpoint: api/courses/<course_id>
 # Desc: handles all single course requests
 # Methods: GET        
-class SingleCourses(APIView):
+class SingleCourse(APIView):
     
     def get_course_obj(pk):
         return Course.objects.get(id=pk)
