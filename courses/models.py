@@ -51,7 +51,7 @@ class Lesson(models.Model):
         self.save()
         
         
-class RegisteredCourses(models.Models):
+class RegisteredCourses(models.Model):
     profile = models.ForeignKey(Profile)
     course = models.ForeignKey(Course)
     progress = models.IntegerField(default=0)
