@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>Video Instructor</title>
+    {% endif %}
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="{% static 'assets/css/colors.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/components.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/layout.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/typography.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}" />
+  </head>
+  <body class="light-background">
+    {% block content %} {% endblock content %}
+  </body>
+</html>

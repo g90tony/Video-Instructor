@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+<!-- start of block content -->
+{% block content %}
+<div class="row-center-static container-xl">
+  <div class="column-start-static white-background white-border">
+    <p class="primary-text text-center width-100 subheading-bold">
+      Edit Profile
+    </p>
+    <div class="column-start-static width-100 margin-auto">
+      <img
+        src="{{current_user.avatar}}"
+        alt=""
+        class="border-circle margin-y-sm"
+        width="200px"
+        height="200px"
+        style="object-fit: cover"
+      />
+      <div class="row-center-static margin-y-none width-100">
+        <p class="primary-text body-xl-bold text-center">
+          {{profile.user.username}}
+        </p>
+      </div>
+    </div>
+    <div class="row-spaced-static width-100 margin-auto">
+      <div class="column-start-static width-50">
+        <form action="" class="block-form width-100">
+          <label for="email" class="width-70 text-start container-xxs"
+            >Update Email</label
+          >
+          <input
+            type="text"
+            class="width-60 text-start container-xs"
+            placeholder="Enter new email here..."
+          />
+          <div class="width-60 row-end-static">
+            <button
+              class="
+                primary-button
+                margin-xxs
+                container-xxs
+                primary-border
+                white-text
+                width-100
+                body-sm-bold
+              "
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+
+        <form action="" class="block-form margin-y-md width-100">
+          <label for="email" class="width-70 text-start container-xxs"
+            >Update Avatar</label
+          >
+          <input
+            type="file"
+            class="width-60 text-start container-xs"
+            accept="image/*"
+          />
+          <div class="width-60 row-end-static">
+            <button
+              class="
+                primary-button
+                margin-xxs
+                container-xxs
+                primary-border
+                white-text
+                width-100
+                body-sm-bold
+              "
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="column-start-static width-50">
+        <form action="" class="block-form width-100">
+          <label for="email" class="width-90 text-start container-xxs"
+            >Update Password</label
+          >
+          <input
+            type="text"
+            class="width-80 text-start container-xs"
+            placeholder="Enter password here..."
+          />
+          <div class="row-spaced-static width-90 margin-y-sm">
+            <div class="column-center-static width-100">
+              <label for="email" class="width-90 text-start container-xxs"
+                >New Password</label
+              >
+              <input
+                type="text"
+                class="width-80 text-start container-xs"
+                placeholder="Enter password here..."
+              />
+            </div>
+            <div class="column-center-static width-100">
+              <label for="email" class="width-90 text-start container-xxs"
+                >Old Password</label
+              >
+              <input
+                type="text"
+                class="width-80 text-start container-xs"
+                placeholder="Enter password here..."
+              />
+            </div>
+          </div>
+          <div class="width-60 row-end-static">
+            <button
+              class="
+                primary-button
+                margin-xxs
+                container-xxs
+                primary-border
+                white-text
+                width-100
+                body-sm-bold
+              "
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

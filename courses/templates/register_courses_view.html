@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+<!-- start of block content -->
+{% block content %}
+
+<div
+  class="row-center-flexible white-border white-background height-80 margin-sm"
+>
+  <div class="width-80 height-100 column-start-flexible margin-none">
+    <iframe
+      src="{{current_lesson.lesson}}"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      class="margin-none width-100 height-100 white-border"
+    ></iframe>
+  </div>
+
+  <div class="width-20 column-start-static height-100">
+    <div class="row-start-static width-100">
+      <p class="body-xl-bold primary-text container-xs margin-none">
+        Course Lessons
+      </p>
+    </div>
+    <div class="column-spaced-static width-100 height-100">
+      {% for item in lessons %}
+      <a
+        href="/registered/view/{{lesson.id}}"
+        class="row-start-static width-100 margin-y-sm"
+      >
+        <div class="column-start-static margin-x-sm">
+          {% if lesson.is_complete %}
+          <img
+            class="border-circle light-background container-xs"
+            src="{% static 'assets/icons/check.svg' %}"
+            alt=""
+          />
+          {% else %}
+          <img
+            class="border-circle light-background container-xs margin-auto"
+            src="{% static 'assets/icons/play.svg' %}"
+            alt=""
+          />
+          {% endif %}
+        </div>
+        <div
+          class="column-end-static white-background circular-border height-80"
+        >
+          <p class="body-sm-bold width-100 margin-none">Lesson:</p>
+          <p class="body-md-bold secondary-text width-100 margin-none">
+            {{lesson.title}}
+          </p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% endblock content %}
+</div>

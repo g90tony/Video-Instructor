@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+<!-- start of block content -->
+{% block content %}
+<div
+  class="
+    column-spaced-flexible
+    white-background
+    container-sm
+    white-border
+    margin-sm
+  "
+>
+  <div class="row-start-static w-100 text-start container-sm">
+    <a
+      href="/courses/browse"
+      class="
+        secondary-link
+        body-md-bold
+        width-100
+        text-start
+        margin-y-auto
+        height-100
+        row-start-static
+      "
+    >
+      <img src="../../../assets/icons/back.svg" class="height-100" />
+      Back
+    </a>
+  </div>
+  <div class="row-start-flexible">
+    <div class="column-center-flexible">
+      <img
+        src="https://images.pexels.com/photos/4457896/pexels-photo-4457896.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+        alt=""
+        class="width-100 white-border"
+      />
+    </div>
+    <div class="column-start-flexible width-40 container-sm">
+      <div class="row-start-static width-100 margin-none">
+        <p class="primary-text body-lg-bold">Course Title</p>
+      </div>
+      <div class="row-start-static width-100 margin-none">
+        <p class="secondary-text body-md-bold margin-none">Category</p>
+      </div>
+      <div class="row-start-flexible width-100 height-80">
+        <p class="body-sm-regular">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+      <div class="row-end-static width-100">
+        <a
+          href="/"
+          class="
+            secondary-button
+            container-xxs
+            secondary-border
+            body-sm-bold
+            white-text
+          "
+          >Enroll Course</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row-start-static width-100 container-sm">
+  <p class="primary-text body-xl-bold">Similar Courses</p>
+</div>
+
+<div
+  class="row-start-static width-80 margin-x-auto"
+  style="margin-bottom: 100px"
+>
+  {% if similar %} {% for item in similar %}
+  <div
+    class="
+      course-card
+      column-start-static
+      light-border
+      white-background
+      margin-xxs
+    "
+  >
+    <div class="row-start-static">
+      <img src="{{course.thumbnail}}" alt="" />
+    </div>
+    <div class="course-text width-80 column-center-static">
+      <div class="row-start-static margin-none width-100">
+        <p class="body-lg-bold primary-text margin-y-xxs width-100">
+          {{course.name}}
+        </p>
+      </div>
+      <div class="row-start-static margin-none width-100">
+        <p class="body-md-bold secondary-text margin-none width-100">
+          Progress
+        </p>
+      </div>
+      <div class="row-start-static width-100">
+        <p
+          class="body-sm-regular margin-none width-100 height-auto margin-y-xxs"
+        >
+          200/=
+        </p>
+      </div>
+      <div class="row-end-static width-100">
+        <a
+          href="/courses/browse/view/{{course.id}}"
+          class="
+            secondary-button secondary-border
+            body-sm-bold
+            container-xs
+            width-30
+            text-center
+          "
+        >
+          View
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <div class="row-static-center w-100">
+    <p class="secondary-text-text-center body-md-bold width-100">
+      There are no similar courses available
+    </p>
+  </div>
+
+  {% endif %}
+</div>
+
+{% endblock content %}
