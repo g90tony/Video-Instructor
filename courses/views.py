@@ -14,7 +14,27 @@ from .serializers import CategorySerializer,CourseSerializer, LessonSerializer,P
 # Create your views here.
 @login_required(login_url='/accounts/login')
 def index(request):
-    pass
+    return render(request, 'dashboard.html', )
+
+@login_required(login_url='/accounts/login')
+def browse_registered(request):
+    return render(request, 'register_courses.html', )
+
+@login_required(login_url='/accounts/login')
+def view_registered(request):
+    return render(request, 'register_courses_view.html', )
+
+@login_required(login_url='/accounts/login')
+def browse_courses(request):
+    return render(request, 'browse_courses.html', )
+
+@login_required(login_url='/accounts/login')
+def view_course(request):
+    return render(request, 'browse_courses_view.html', )
+
+@login_required(login_url='/accounts/login')
+def edit_profile(request):
+    return render(request, 'edit_profile.html', )
 
 # ===========================================================================================================================================================================================================================================================================================================
 # API Routes
