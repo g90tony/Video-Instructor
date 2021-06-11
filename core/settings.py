@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'courses.apps.CoursesConfig',
     'rest_framework',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
