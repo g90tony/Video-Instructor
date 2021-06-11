@@ -13,12 +13,16 @@
   >
     <p class="body-xl-bold primary-text width-auto">Browse Courses</p>
 
-    <form action="" class="inline-form width-auto">
+    <form
+      action="/courses/browse/search"
+      method="POST"
+      class="inline-form width-auto"
+    >
       <input
         type="text"
-        name="search"
-        id="search"
-        placeholder="Search registered courses..."
+        name="search_query"
+        id="search_query"
+        placeholder="Search all courses..."
       />
     </form>
   </div>

@@ -13,11 +13,15 @@
   >
     <p class="body-xl-bold primary-text width-100">Your Courses</p>
 
-    <form action="" class="inline-form width-auto">
+    <form
+      action="/courses/registered/search"
+      method="POST"
+      class="inline-form width-auto"
+    >
       <input
         type="text"
-        name="search"
-        id="search"
+        name="search_query"
+        id="search_query"
         placeholder="Search registered courses..."
       />
     </form>
