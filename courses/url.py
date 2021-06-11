@@ -21,6 +21,11 @@ from . import views as API_ROUTES
 
 urlpatterns = [
     path('', view=API_ROUTES.index, name='Home'),
+    path('courses/registered', view=API_ROUTES.browse_registered, name='Home'),
+    path('courses/registered/view/<int:course_id>', view=API_ROUTES.view_registered, name='Home'),
+    path('courses/browse', view=API_ROUTES.browse_courses, name='Home'),
+    path('courses/browse/view/<int:course_id>', view=API_ROUTES.view_course, name='Home'),
+    path('profile/edit', view=API_ROUTES.edit_profile, name='Home'),
     
     path('api/categories/', view=API_ROUTES.ListCategory.as_view()),
     
