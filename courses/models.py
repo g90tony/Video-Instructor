@@ -31,6 +31,7 @@ class Course(models.Model):
     description = models.TextField(default=None)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     thumbnail = CloudinaryField('image', default=None)
+    created = models.DateField(auto_now=True)
     
     def __str__(self):
         return self.name
