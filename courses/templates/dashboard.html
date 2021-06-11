@@ -12,7 +12,7 @@
     >
       <div class="width-auto height-100 column-center-static">
         <img
-          src="{{item.course.thumbnail}}"
+          src="{{item.course.thumbnail.url}}"
           alt=""
           class="light-border"
           style="margin: 0"
@@ -28,7 +28,7 @@
         "
       >
         <div class="row-start-static width-100">
-          <p class="primary-text body-lg-bold" style="margin: 20px 0 0px 0">
+          <p class="primary-text body-sm-bold" style="margin: 20px 0 0px 0">
             {{item.course.name}}
           </p>
         </div>
@@ -49,7 +49,7 @@
 
     {% endfor %} {% else %}
     <div class="row-center-static w-100">
-      <p class="secondary-text-text-center body-md-bold width-100">
+      <p class="secondary-text-text-center body-sm-bold width-100">
         You have not registered for any course
       </p>
     </div>
@@ -57,7 +57,7 @@
   </div>
 
   <div class="row-start-static width-100 height-auto">
-    <p class="primary-text body-xl-bold">Recently Added Courses</p>
+    <p class="primary-text body-lg-bold">Recently Added Courses</p>
   </div>
 
   <div class="row-start-flexible width-80 height-100">
@@ -72,40 +72,32 @@
       "
     >
       <div class="row-start-static">
-        <img src="{{item.thumbnail}}" alt="" />
+        <img src="{{item.thumbnail.url}}" alt="" />
       </div>
-      <div class="course-text width-80 column-center-static">
-        <div class="row-start-static margin-none width-100">
-          <p class="body-lg-bold primary-text margin-y-xxs width-100">
-            {{item.name}}
-          </p>
+      <div class="course-text width-100">
+        <div class="row-start-static container-x-sm width-100">
+          <p class="body-sm-bold primary-text width-100">{{item.name}}</p>
         </div>
-        <div class="row-start-static margin-none width-100">
-          <p class="body-md-bold secondary-text margin-none width-100">
+        <div class="row-start-static container-x-sm width-100">
+          <p class="body-sm-bold secondary-text margin-none width-100">
             Progress
           </p>
         </div>
-        <div class="row-start-static width-100">
+        <div class="row-start-static container-x-sm width-100">
           <p
-            class="
-              body-sm-regular
-              margin-none
-              width-100
-              height-auto
-              margin-y-xxs
-            "
+            class="body-sm-bold margin-none width-100 height-auto margin-y-xxs"
           >
             200/=
           </p>
         </div>
-        <div class="row-end-static width-100">
+        <div class="row-end-static width-80 margin-auto">
           <a
             href="/courses/browse/view/{{item.id}}"
             class="
-              secondary-button secondary-border
+              primary-button primary-border
               body-sm-bold
-              container-xs
-              width-30
+              container-xxs
+              width-100
               text-center
             "
           >

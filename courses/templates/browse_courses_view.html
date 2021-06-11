@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %}
 <!-- start of block content -->
 {% block content %}
 <div
@@ -7,7 +7,8 @@
     white-background
     container-sm
     white-border
-    margin-sm
+    margin-auto
+    width-80
   "
 >
   <div class="row-start-static w-100 text-start container-sm">
@@ -23,42 +24,37 @@
         row-start-static
       "
     >
-      <img src="../../../icons/back.svg" class="height-100" />
+      <img src="{% static 'icons/back.svg' %}'" class="height-100" />
       Back
     </a>
   </div>
   <div class="row-start-flexible">
     <div class="column-center-flexible">
       <img
-        src="https://images.pexels.com/photos/4457896/pexels-photo-4457896.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+        src="{{course.thumbnail.url}}"
+        width="90%"
         alt=""
-        class="width-100 white-border"
+        class="white-border"
       />
     </div>
-    <div class="column-start-flexible width-40 container-sm">
+    <div class="column-start-flexible width-auto container-sm">
       <div class="row-start-static width-100 margin-none">
-        <p class="primary-text body-lg-bold">Course Title</p>
+        <p class="primary-text body-lg-bold">{{course.name}}</p>
       </div>
       <div class="row-start-static width-100 margin-none">
-        <p class="secondary-text body-md-bold margin-none">Category</p>
+        <p class="secondary-text body-md-bold margin-none">
+          {{course.category.name}}
+        </p>
       </div>
       <div class="row-start-flexible width-100 height-80">
-        <p class="body-sm-regular">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <p class="body-sm-regular width-100">{{course.description}}</p>
       </div>
       <div class="row-end-static width-100">
         <a
-          href="/"
+          href="/courses/registered/register/{{course.id}}"
           class="
             secondary-button
-            container-xxs
+            container-xs
             secondary-border
             body-sm-bold
             white-text
@@ -89,7 +85,7 @@
     "
   >
     <div class="row-start-static">
-      <img src="{{course.thumbnail}}" alt="" />
+      <img src="{{course.thumbnail.url}}" alt="" />
     </div>
     <div class="course-text width-80 column-center-static">
       <div class="row-start-static margin-none width-100">

@@ -2,19 +2,20 @@
 <!-- start of block content -->
 {% block content %}
 <div class="row-center-static container-xl">
-  <div class="column-start-static white-background white-border">
+  <div class="column-start-static width-50 white-background white-border">
     <p class="primary-text text-center width-100 subheading-bold">
-      Edit Profile
+      Create your Profile
     </p>
 
     <div class="row-spaced-static width-100 margin-auto">
-      <div class="column-start-static width-50">
+      <div class="column-start-static width-100">
         <form
-          action="/profile/create"
+          action="/profile/create/"
           method="POST"
           enctype="multipart/form-data"
           class="block-form width-100"
         >
+          {% csrf_token %}
           <label for="email" class="width-70 text-start container-xxs"
             >First Name</label
           >
@@ -45,39 +46,12 @@
             name="new_avatar"
             id="new_avatar"
           />
+
           <div class="width-60 row-end-static">
             <button
               class="
                 primary-button
-                margin-xxs
-                container-xxs
-                primary-border
-                white-text
-                width-100
-                body-sm-bold
-              "
-              type="submit"
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-      <div class="column-start-static width-50">
-        <form action="" class="block-form margin-y-md width-100">
-          <label for="email" class="width-70 text-start container-xxs"
-            >Update Avatar</label
-          >
-          <input
-            type="file"
-            class="width-60 text-start container-xs"
-            accept="image/*"
-          />
-          <div class="width-60 row-end-static">
-            <button
-              class="
-                primary-button
-                margin-xxs
+                margin-xs
                 container-xxs
                 primary-border
                 white-text

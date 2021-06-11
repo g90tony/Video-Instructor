@@ -44,7 +44,13 @@
       </div>
       <div
         id="sidebar"
-        class="white-background column-start-static width-100 height-100"
+        class="
+          white-background
+          column-start-static
+          text-center
+          container-xxs
+          height-100
+        "
       >
         <div class="row-spaced-static w-100">
           <div class="w-100 container-sm">
@@ -56,34 +62,34 @@
           </div>
         </div>
 
-        <a href="/" class="sidebar-items">
-          <img src="{% static 'icons/home.svg'%}" />
-          <p class="body-md-bold primary-text text-start">Home</p>
+        <a href="/" class="sidebar-items width-50">
+          <img src="{% static 'icons/home.svg'%}" width="30px" />
+          <p class="body-sm-bold primary-text text-start">Home</p>
         </a>
-        <a href="/courses/registered" class="sidebar-items">
-          <img src="{% static 'icons/registered.svg'%}" />
-          <p class="body-md-bold primary-text text-start">
+        <a href="/courses/registered" class="sidebar-items width-50">
+          <img src="{% static 'icons/registered.svg'%}" width="30px" />
+          <p class="body-sm-bold primary-text text-start">
             Registered <br />
             Courses
           </p>
         </a>
-        <a href="/courses/browse" class="sidebar-items">
-          <img src="{% static 'icons/courses.svg'%}" />
-          <p class="body-md-bold primary-text text-start">
+        <a href="/courses/browse" class="sidebar-items width-50">
+          <img src="{% static 'icons/courses.svg'%}" width="30px" />
+          <p class="body-sm-bold primary-text text-start">
             Browse <br />
             Courses
           </p>
         </a>
-        <a href="/profile/edit" class="sidebar-items">
-          <img src="{% static 'icons/profile.svg'%}" />
-          <p class="body-md-bold primary-text text-start">
+        <a href="/profile/edit" class="sidebar-items width-50">
+          <img src="{% static 'icons/profile.svg'%}" width="30px" />
+          <p class="body-sm-bold primary-text text-start">
             Edit <br />
             Profile
           </p>
         </a>
-        <a href="/logout" class="sidebar-items">
-          <img src="{% static 'icons/log-out.svg' %}" />
-          <p class="body-md-bold primary-text text-start">Log out</p>
+        <a href="/logout" class="sidebar-items width-50">
+          <img src="{% static 'icons/log-out.svg' %}" width="30px" />
+          <p class="body-sm-bold primary-text text-start">Log out</p>
         </a>
       </div>
       <div id="content" class="height-100 width-100">

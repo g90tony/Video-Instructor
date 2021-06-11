@@ -40,7 +40,7 @@
     "
   >
     <div class="row-start-static">
-      <img src="{{course.thumbnail}}" alt="" />
+      <img src="{{course.thumbnail.url}}" alt="" />
     </div>
     <div class="course-text width-80 column-center-static">
       <div class="row-start-static margin-none width-100">
@@ -48,18 +48,7 @@
           {{course.name}}
         </p>
       </div>
-      <div class="row-start-static margin-none width-100">
-        <p class="body-md-bold secondary-text margin-none width-100">
-          Progress
-        </p>
-      </div>
-      <div class="row-start-static width-100">
-        <p
-          class="body-sm-regular margin-none width-100 height-auto margin-y-xxs"
-        >
-          200/=
-        </p>
-      </div>
+
       <div class="row-end-static width-100">
         <a
           href="/courses/browse/view/{{course.id}}"

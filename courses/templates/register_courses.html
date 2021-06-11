@@ -11,7 +11,7 @@
       margin-x-auto
     "
   >
-    <p class="body-xl-bold primary-text width-100">Your Courses</p>
+    <p class="body-lg-bold primary-text width-100">Your Courses</p>
 
     <form
       action="/courses/registered/search"
@@ -30,42 +30,37 @@
 
 <div class="row-center-flexible width-80 margin-x-auto height-auto">
   {% if registered %} {% for item in registered %}
-  <div class="registered-card-lg white-background white-border">
+  <div class="registered-card-lg height-100 white-background white-border">
     <div class="row-center-static width-100 margin-none">
-      <img src="{{item.thumbnail}}" alt="" />
+      <img src="{{item.course.thumbnail.url}}" alt="" />
     </div>
-    <div class="registered-text-lg width-100 container-x-xs margin-y-xs">
+    <div class="registered-text-md width-100 container-x-xs margin-y-xs">
       <div class="row-start-static width-auto margin-none">
-        <p class="primary-text margin-x-xs margin-y-xxs body-lg-bold">
-          {{item.name}}
+        <p class="primary-text margin-x-xs margin-y-xxs body-md-bold">
+          {{item.course.name}}
         </p>
       </div>
       <div class="row-spaced-flexible width-auto">
-        <p class="secondary-text width-30 margin-xs body-md-bold">Progress</p>
-        <div class="light-background light-border width-70 margin-x-sm">
+        <p class="secondary-text width-30 margin-xs body-sm-bold">Progress</p>
+        <div class="light-background light-border width-50 margin-x-sm">
           <div
             class="secondary-background secondary-border {{item.progress}}"
-            style="padding: 3px"
+            style="padding: 2px"
           ></div>
         </div>
       </div>
-      <div class="row-spaced-static width-100 margin-none">
-        <p class="secondary-text body-md-bold margin-x-xs">Next Lesson</p>
-        <p class="primary-text body-md-bold margin-x-sm">
-          {{item.next_lesson}}
-        </p>
-      </div>
+
       <div class="row-end-static width-80 margin-x-auto container-y-xs">
         <a
           href="/courses/registered/view/{{item.id}}"
           class="
             secondary-button
-            width-40
+            width-30
             body-sm-bold
             margin-0
             text-center
             secondary-border
-            container-xs
+            container-xxs
           "
         >
           View
