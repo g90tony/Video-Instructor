@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.http import response
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
 from rest_framework import serializers, status
@@ -14,27 +14,162 @@ from .serializers import CourseSerializer, LessonSerializer,ProfileSerializer,Pr
 # Create your views here.
 @login_required(login_url='/accounts/login')
 def index(request):
-    return render(request, 'dashboard.html', )
+    
+    current_user = request.user
+    title = 'Video Instructor: Dashboard'
+    
+    user_profile = Profile.objects.filter(user = current_user).first()
+    
+    if user_profile is  None:
+        return redirect('/profile/create')
+    
+    registered_courses = RegisteredCourses.objects.filter(profile = user_profile).all()
+    
+    new_courses = Course.objects.order_by('-created')[:10]
+    
+    return render(request, 'dashboard.html', {'title':title, 'current_user':current_user, 'registered':registered_courses, 'recent':new_courses })
 
 @login_required(login_url='/accounts/login')
 def browse_registered(request):
-    return render(request, 'register_courses.html', )
+    
+    current_user = request.user
+    user_profile = Profile.objects.filter(user=current_user).first()
+    title = 'Browse Courses: Video Instructor'
+    registered_courses = RegisteredCourses.objects.filter(profile= user_profile).all()
+    
+    return render(request, 'register_courses.html', {'title': title, 'registered': registered_courses} )
 
 @login_required(login_url='/accounts/login')
-def view_registered(request):
-    return render(request, 'register_courses_view.html', )
+def view_registered(request, register_id):
+    
+    current_user = request.user
+    user_profile = Profile.objects.filter(user = current_user).first()
+    title = 'Learn: Video Instructor'
+    
+    registered_course = RegisteredCourses.objects.filter(id = register_id ).first()
+    
+    registered_course_lessons = Lesson.objects.filter(course = registered_course).all()
+    
+    registered_lesson = list()
+    
+    for item in registered_course_lessons:
+        lesson_obj = dict()
+        lesson_progress = Progress.objects.filter(profile=user_profile, course=registered_course, lesson=item).first()
+        lesson_obj['progress_id'] = lesson_progress.id
+        lesson_obj['title'] = item.title
+        lesson_obj['descripion'] = item.descripion
+        lesson_obj['lesson'] = item.lesson
+        lesson_obj['is_complete'] = lesson_progress.is_complete
+        
+        registered_lesson.append(lesson_obj)
+        
+    return render(request, 'register_courses_view.html', {'title':title, 'course_name': registered_course.title })
 
 @login_required(login_url='/accounts/login')
 def browse_courses(request):
-    return render(request, 'browse_courses.html', )
+    
+    current_user = request.user
+    title = 'Browse Courses: Video Instructor'
+    courses = Course.objects.all()
+
+    return render(request, 'browse_courses.html', {'title': title, 'courses': courses} )
 
 @login_required(login_url='/accounts/login')
-def view_course(request):
-    return render(request, 'browse_courses_view.html', )
+def view_course(request, course_id):
+    title = 'View Course: Video Instructor'
+    current_user = request.user
+    
+    course = Course.objects.filter(is=course_id).first()
+    
+    
+    return render(request, 'browse_courses_view.html', {'title': title, 'course': course} )
 
 @login_required(login_url='/accounts/login')
 def edit_profile(request):
     return render(request, 'edit_profile.html', )
+
+
+@login_required(login_url='/accounts/login/')
+def search_courses(request):
+    if request.method is 'POST':
+        search_query = request.POST.get('search_query')
+        
+        results = Course.objects.filter(name= search_query).all()
+        title = 'Search Results: Video Instructor'
+        
+        if results:
+            return render(request, 'search_results.html', {'title': title, 'results': results})
+        else:
+            return render(request, 'search_results.html', {'title': title, 'message':f'There was were no results for {search_query}'})
+    
+    else: 
+        return redirect('/courses/browse')
+
+
+@login_required(login_url='/accounts/login/')
+def search_registered(request):
+    if request.method is 'POST':
+        search_query = request.POST.get('search_query')
+        
+        results = Course.objects.filter(name= search_query).all()
+        title = 'Search Results: Video Instructor'
+        if results:
+            return render(request, 'search_results.html', {'title': title, 'results': results})
+        else:
+            return render(request, 'search_results.html', {'title': title, 'message':f'There was were no results for {search_query}'})
+                      
+                      
+@login_required(login_url='accounts/login/')
+def update_email(request):
+    if request.method is 'POST':
+        
+        current_user = request.user
+        user_obj = User.objects.filter(user=current_user).first()
+        
+        updated_email = request.POST.get('new_email')
+        if updated_email:
+            user_obj.email = update_email
+            
+            user_obj.save()
+
+
+@login_required(login_url='accounts/login/')
+def update_avatar(request):
+    if request.method is 'POST':
+        
+        current_user = request.user
+        user_obj = User.objects.filter(user=current_user).first()
+        
+        updated_avatar = request.FILES['new_avatar']
+        
+        user_obj.avatar = updated_avatar
+        
+        user_obj.save()
+
+
+@login_required(login_url='accounts/login/')
+def create_profile(request):
+    if request.method is 'POST':
+        
+        current_user = request.user
+        
+        updated_avatar = request.FILES['new_avatar']
+        updated_first_name = request.POST.get('first_name')
+        updated_last_name = request.POST.get('last_name')
+        
+        new_profile = Profile(avatar=updated_avatar, first_name=updated_first_name, last_name=updated_last_name, user=current_user)
+        
+        new_profile.create_profile()
+        
+        return redirect('/')
+    
+# @login_required(login_url='/accounts/login/')
+# def load_next_lesson(request):
+#     if request.method is 'POST':
+        
+         
+        
+    
 
 # ===========================================================================================================================================================================================================================================================================================================
 # API Routes
