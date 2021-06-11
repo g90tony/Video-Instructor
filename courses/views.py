@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response 
 
 from .models import Category, Course, Lesson, Profile, Progress, RegisteredCourses
-from .serializers import CategorySerializer,CourseSerializer, LessonSerializer,ProfileSerializer,ProgressSerializer,RegisterCourseSerializer, ListProfileSerializer, ListCategorySerializer, ListCourseSerializer, ListLessonSerializer, ListProgressSerializer, ListRegisterCourseSerializer
+from .serializers import CourseSerializer, LessonSerializer,ProfileSerializer,ProgressSerializer,RegisterCourseSerializer, ListProfileSerializer, ListCategorySerializer, ListProgressSerializer, ListRegisterCourseSerializer
 
 # Create your views here.
 @login_required(login_url='/accounts/login')
