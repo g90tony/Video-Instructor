@@ -40,30 +40,16 @@ def browse_registered(request):
     return render(request, 'register_courses.html', {'title': title, 'registered': registered_courses} )
 
 @login_required(login_url='/accounts/login')
-def view_registered(request, register_id):
+def view_registered(request, lesson_id):
     
     current_user = request.user
     user_profile = Profile.objects.filter(user = current_user).first()
     title = 'Learn: Video Instructor'
-    
-    registered_course = RegisteredCourses.objects.filter(id = register_id ).first()
-    
-    registered_course_lessons = Lesson.objects.filter(course = registered_course).all()
-    
-    registered_lesson = list()
-    
-    for item in registered_course_lessons:
-        lesson_obj = dict()
-        lesson_progress = Progress.objects.filter(profile=user_profile, course=registered_course, lesson=item).first()
-        lesson_obj['progress_id'] = lesson_progress.id
-        lesson_obj['title'] = item.title
-        lesson_obj['descripion'] = item.descripion
-        lesson_obj['lesson'] = item.lesson
-        lesson_obj['is_complete'] = lesson_progress.is_complete
+    current_lesson = Lesson.objects.filter(id = lesson_id).first()
+    registered_lessons = Lesson.objects.filter(course = current_lesson.course).all()
+
         
-        registered_lesson.append(lesson_obj)
-        
-    return render(request, 'register_courses_view.html', {'title':title, 'course_name': registered_course.title })
+    return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'lessons': registered_lessons,})
 
 @login_required(login_url='/accounts/login')
 def browse_courses(request):
@@ -85,16 +71,35 @@ def view_course(request, course_id):
     return render(request, 'browse_courses_view.html', {'title': title, 'course': course} )
 
 @login_required(login_url='/accounts/login')
+def register_course(request, course_id):
+    
+    course = Course.objects.filter(id=course_id).first()
+    
+    current_user = request.user
+    
+    user_profile = Profile.objects.filter(user=current_user).first() 
+    
+    new_registration = RegisteredCourses(profile=user_profile, course=course)
+    
+    new_registration.save()
+    
+    return redirect('/')
+    
+
+@login_required(login_url='/accounts/login')
 def edit_profile(request):
     
     title = 'Edit Profile; Video Instructor'
+    current_user = request.user
     
-    return render(request, 'edit_profile.html',{ 'title': title })
+    user_profile = Profile.objects.filter(user=current_user).first()
+    
+    return render(request, 'edit_profile.html',{ 'title': title, "current_user": user_profile })
 
 
 @login_required(login_url='/accounts/login/')
 def search_courses(request):
-    if request.method is 'POST':
+    if request.method == 'POST':
         search_query = request.POST.get('search_query')
         
         results = Course.objects.filter(name= search_query).all()
@@ -111,7 +116,7 @@ def search_courses(request):
 
 @login_required(login_url='/accounts/login/')
 def search_registered(request):
-    if request.method is 'POST':
+    if request.method == 'POST':
         search_query = request.POST.get('search_query')
         
         results = Course.objects.filter(name= search_query).all()
@@ -124,7 +129,7 @@ def search_registered(request):
                       
 @login_required(login_url='accounts/login/')
 def update_email(request):
-    if request.method is 'POST':
+    if request.method == 'POST':
         
         current_user = request.user
         user_obj = User.objects.filter(user=current_user).first()
@@ -138,7 +143,7 @@ def update_email(request):
 
 @login_required(login_url='accounts/login/')
 def update_avatar(request):
-    if request.method is 'POST':
+    if request.method == 'POST':
         
         current_user = request.user
         user_obj = User.objects.filter(user=current_user).first()
@@ -156,8 +161,7 @@ def create_profile(request):
     title = 'Create Profile: Video Instructor'
         
         
-    if request.method is 'POST':
-        
+    if request.method == 'POST':
         
         updated_avatar = request.FILES['new_avatar']
         updated_first_name = request.POST.get('first_name')
@@ -165,7 +169,7 @@ def create_profile(request):
         
         new_profile = Profile(avatar=updated_avatar, first_name=updated_first_name, last_name=updated_last_name, user=current_user)
         
-        new_profile.create_profile()
+        new_profile.save()
         
         return redirect('/')
     
@@ -174,7 +178,7 @@ def create_profile(request):
     
 # @login_required(login_url='/accounts/login/')
 # def load_next_lesson(request):
-#     if request.method is 'POST':
+#     if request.method == 'POST':
         
          
         

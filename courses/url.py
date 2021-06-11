@@ -24,14 +24,15 @@ urlpatterns = [
     
     path('courses/registered', view=API_ROUTES.browse_registered, name='Browse Registered'),
     path('course/registered/search', view=API_ROUTES.search_registered, name='Search Registered'),
-    path('courses/registered/view/<int:course_id>', view=API_ROUTES.view_registered, name='View Registered'),
+    path('courses/registered/view/<int:lesson_id>', view=API_ROUTES.view_registered, name='View Registered'),
+    path('courses/registered/register/<int:course_id>', view=API_ROUTES.register_course, name='View Registered'),
     
     path('courses/browse', view=API_ROUTES.browse_courses, name='Browse Course'),
     path('course/browse/search', view=API_ROUTES.search_courses, name='Search Courses'),
     path('courses/browse/view/<int:course_id>', view=API_ROUTES.view_course, name='View Course'),
     
-    path('profile/create', view=API_ROUTES.create_profile, name='Create Profile'),
-    path('profile/edit', view=API_ROUTES.edit_profile, name='Edit Profile'),
+    path('profile/create/', view=API_ROUTES.create_profile, name='Create Profile'),
+    path('profile/edit/', view=API_ROUTES.edit_profile, name='Edit Profile'),
     path('profile/update/email', view=API_ROUTES.edit_profile, name='Update Email'),
     path('profile/update/avatar', view=API_ROUTES.edit_profile, name='Update Avatar'),
     
