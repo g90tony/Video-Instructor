@@ -79,14 +79,17 @@ def view_course(request, course_id):
     title = 'View Course: Video Instructor'
     current_user = request.user
     
-    course = Course.objects.filter(is=course_id).first()
+    course = Course.objects.filter(id=course_id).first()
     
     
     return render(request, 'browse_courses_view.html', {'title': title, 'course': course} )
 
 @login_required(login_url='/accounts/login')
 def edit_profile(request):
-    return render(request, 'edit_profile.html', )
+    
+    title = 'Edit Profile; Video Instructor'
+    
+    return render(request, 'edit_profile.html',{ 'title': title })
 
 
 @login_required(login_url='/accounts/login/')
@@ -149,9 +152,12 @@ def update_avatar(request):
 
 @login_required(login_url='accounts/login/')
 def create_profile(request):
+    current_user = request.user
+    title = 'Create Profile: Video Instructor'
+        
+        
     if request.method is 'POST':
         
-        current_user = request.user
         
         updated_avatar = request.FILES['new_avatar']
         updated_first_name = request.POST.get('first_name')
@@ -162,6 +168,9 @@ def create_profile(request):
         new_profile.create_profile()
         
         return redirect('/')
+    
+    else:
+        return render(request, 'create_profile.html', {'title': title})
     
 # @login_required(login_url='/accounts/login/')
 # def load_next_lesson(request):
