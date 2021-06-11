@@ -11,7 +11,6 @@
     {% endif %}
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="{% static 'assets/css/colors.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/components.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
@@ -20,6 +19,76 @@
     <link rel="stylesheet" href="{% static 'assets/css/utilities.css' %}" />
   </head>
   <body class="light-background">
-    {% block content %} {% endblock content %}
+    <div class="main-container">
+      <div
+        id="navbar"
+        class="white-background row-flexible-spaced width-100 height-100"
+      >
+        <div class="row-spaced-static w-100">
+          <div class="w-100 container-sm">
+            <img
+              src="{% static 'assets/images/nav-logo.png' %}"
+              alt=""
+              id="nav-logo"
+            />
+          </div>
+
+          <form action="/" class="container-sm width-20 inline-form">
+            <input
+              type="text"
+              placeholder="Search course titles"
+              class="width-100"
+            />
+          </form>
+        </div>
+      </div>
+      <div
+        id="sidebar"
+        class="white-background column-start-static width-100 height-100"
+      >
+        <div class="row-spaced-static w-100">
+          <div class="w-100 container-sm">
+            <img
+              src="{% static 'assets/images/nav-logo.png' %}"
+              alt=""
+              id="nav-logo"
+            />
+          </div>
+        </div>
+
+        <a href="/" class="sidebar-items">
+          <img src="{% static 'assets/icons/home.svg'%}" />
+          <p class="body-md-bold primary-text text-start">Home</p>
+        </a>
+        <a href="/courses/registered" class="sidebar-items">
+          <img src="{% static 'assets/icons/registered.svg'%}" />
+          <p class="body-md-bold primary-text text-start">
+            Registered <br />
+            Courses
+          </p>
+        </a>
+        <a href="/courses/browse" class="sidebar-items">
+          <img src="{% static 'assets/icons/courses.svg'%}" />
+          <p class="body-md-bold primary-text text-start">
+            Browse <br />
+            Courses
+          </p>
+        </a>
+        <a href="/profile/edit" class="sidebar-items">
+          <img src="{% static 'assets/icons/profile.svg'%}" />
+          <p class="body-md-bold primary-text text-start">
+            Edit <br />
+            Profile
+          </p>
+        </a>
+        <a href="/logout" class="sidebar-items">
+          <img src="{% static 'assets/icons/log-out.svg' %}" />
+          <p class="body-md-bold primary-text text-start">Log out</p>
+        </a>
+      </div>
+      <div id="content" class="height-100 width-100">
+        {% block content %} {% endblock content %}
+      </div>
+    </div>
   </body>
 </html>
