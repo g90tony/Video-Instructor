@@ -28,8 +28,8 @@
   </div>
 </div>
 
-<div class="row-center-flexible width-80 margin-x-auto height-auto">
-  {% if registered %} {% for item in registered %}
+{% if registered %} {% for item in registered %}
+<div class="row-start-flexible width-80 margin-x-auto height-auto">
   <div class="registered-card-lg height-100 white-background white-border">
     <div class="row-center-static width-100 margin-none">
       <img src="{{item.course.thumbnail.url}}" alt="" />
@@ -78,10 +78,12 @@
   </div>
 
   {% endfor %} {% else %}
-  <div class="row-static-center w-100">
-    <p class="secondary-text-text-center body-md-bold width-100">
-      You have not registered for any course
-    </p>
+  <div class="row-start-flexible width-80 margin-x-auto height-auto">
+    <div class="row-static-center w-100">
+      <p class="secondary-text-text-center body-md-bold width-100">
+        You have not registered for any course
+      </p>
+    </div>
   </div>
   {% endif %}
 </div>
