@@ -32,17 +32,8 @@
             {{item.course.name}}
           </p>
         </div>
-        <div class="row-start-flexible width-100">
-          <p class="secondary-text body-sm-bold margin-y-xxs">Progress:</p>
-          <div
-            class="light-border light-background {{item.progress}}"
-            style="margin: 0px"
-          >
-            <div
-              class="secondary-border secondary-background width-40"
-              style="padding: 4px"
-            ></div>
-          </div>
+        <div class="row-start-flexible margin-y-none width-100">
+          <p class="body-sm-bold margin-y-xxs">{{item.course.category}}</p>
         </div>
       </div>
     </div>
@@ -80,14 +71,14 @@
         </div>
         <div class="row-start-static container-x-sm width-100">
           <p class="body-sm-bold secondary-text margin-none width-100">
-            Progress
+            {{item.category}}
           </p>
         </div>
         <div class="row-start-static container-x-sm width-100">
           <p
             class="body-sm-bold margin-none width-100 height-auto margin-y-xxs"
           >
-            200/=
+            {{item.created | date:'M Y'}}
           </p>
         </div>
         <div class="row-end-static width-80 margin-auto">
