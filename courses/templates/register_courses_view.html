@@ -40,7 +40,10 @@
         "
       >
         <div class="column-start-static width-20 margin-x-sm">
-          <a href="/courses/registered/view/{{item.id}}" class="loader">
+          <a
+            href="/courses/registered/view/{{item.course.id}}/lesson/{{item.id}}"
+            class="loader"
+          >
             <img
               class="border-circle light-background container-xs margin-auto"
               src="{% static 'icons/play.svg' %}"
@@ -68,7 +71,7 @@
               light-background
             "
           >
-            {{item.lesson.title}}
+            {{item.title}}
           </p>
         </div>
       </div>
@@ -87,10 +90,6 @@
   var tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";
 
-  var getUrl = window.location;
-  var baseUrl =
-    getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split("/")[1];
-
   var firstScript = document.getElementsByTagName("script")[0];
   firstScript.parentNode.insertBefore(tag, firstScript);
   function onYouTubeIframeAPIReady() {
@@ -98,13 +97,11 @@
       events: {
         onStateChange: function (evt) {
           if (evt.data === YT.PlayerState.ENDED) {
-            window.location.href =
-              "/courses/registered/view/" +
-              course_id +
-              "/lesson/" +
-              lesson_id +
-              "/complete/" +
-              next_lesson_id;
+            if (next_lesson_id)
+              window.location.href = `/courses/registered/view/${course_id}/lesson/${lesson_id}/complete/${next_lesson_id}`;
+            else {
+              window.location.href = `/courses/registered`;
+            }
           }
         },
       },

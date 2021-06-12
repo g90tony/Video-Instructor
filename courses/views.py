@@ -116,31 +116,38 @@ def view_lesson(request, course_id, lesson_id):
     current_lesson = Lesson.objects.filter(id = lesson_id).first()
     
     course = Course.objects.filter(id=course_id).first()
-    registered_lessons = Progress.objects.filter(course = course, profile = user_profile).all()
+    lessons_list = Progress.objects.filter(course = course, profile = user_profile).all()
+    lessons_list = Lesson.objects.filter(course = course).all()
     
     count = 0
     end = False
-    next_lesson_obj = int()
-    while count > len(registered_lessons) :
-        if registered_lessons[count].lesson == current_lesson:
-            next_lesson = count + 1
-            next_lesson_obj = registered_lessons[next_lesson].lesson.id
+    next_lesson_obj = ""
+    
+    for lesson in lessons_list :
+        
+        if lesson == current_lesson and count < len(lessons_list):
+            if count + 1 > len(lessons_list):
+                next_lesson_obj = lessons_list[count + 1].id          
+            
+            else:
+                next_lesson_obj = lesson.id
+                return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': next_lesson_obj,'lessons': lessons_list,})
+        else:
+            last_lesson_obj = '/courses/registered'
+            return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'last_lesson': last_lesson_obj,'lessons': lessons_list,})
 
-            
-            return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': {next_lesson_obj},'lessons': registered_lessons,})
-            
         count = count + 1
-        
-    if next_lesson_obj == None:
-        next_lesson_obj = '/courses/registered'
-        return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'last_lesson': {next_lesson_obj},'lessons': registered_lessons,})
+    else:
+        last_lesson_obj = '/courses/registered'
+        return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'last_lesson': last_lesson_obj,'lessons': lessons_list,})
+
 
         
-    return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': {next_lesson_obj},'lessons': registered_lessons,})
+    return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': next_lesson_obj,'lessons': lessons_list,})
 
 
 @login_required(login_url='/accounts/login')
-def complete_lesson(request, course_id, lesson_id, next_request,):
+def complete_lesson(request, course_id, lesson_id, next_request):
     
     current_user = request.user
     
