@@ -47,9 +47,24 @@ def view_registered(request, lesson_id):
     title = 'Learn: Video Instructor'
     current_lesson = Lesson.objects.filter(id = lesson_id).first()
     registered_lessons = Lesson.objects.filter(course = current_lesson.course).all()
+    
+    count = 0
+    end = False
+    next_lesson_obj = ''
+    while end == False :
+        for lesson in registered_lessons:
+            if lesson == current_lesson:
+                next_lesson = count + 1
+                next_lesson_obj = registered_lessons[next_lesson].lesson
+                end = True
+                
+        count = count + 1
+        
+    if next_lesson_obj == None:
+        next_lesson_obj = '/'
 
         
-    return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'lessons': registered_lessons,})
+    return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': next_lesson_obj,'lessons': registered_lessons,})
 
 @login_required(login_url='/accounts/login')
 def browse_courses(request):
