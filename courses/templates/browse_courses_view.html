@@ -24,17 +24,15 @@
         row-start-static
       "
     >
-      <img src="{% static 'icons/back.svg' %}'" class="height-100" />
+      <img src="{% static 'icons/back.svg' %}" class="height-100" />
       Back
     </a>
   </div>
   <div class="row-start-flexible">
-    <div class="column-center-flexible">
+    <div class="column-center-static">
       <img
         src="{{course.thumbnail.url}}"
-        width="90%"
-        alt=""
-        class="white-border"
+        class="white-border course-view-img margin-x-auto"
       />
     </div>
     <div class="column-start-flexible width-auto container-sm">
