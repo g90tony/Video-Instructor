@@ -40,6 +40,41 @@
         "
       >
         <div class="column-start-static width-20 margin-x-sm">
+          {% if item.id == current_lesson.id %}
+          <a
+            href="/courses/registered/view/{{item.course.id}}/lesson/{{item.id}}"
+            class="loader"
+          >
+            <img
+              class="border-circle light-background container-xs margin-auto"
+              src="{% static 'icons/check.svg' %}"
+              alt=""
+            />
+          </a>
+        </div>
+        <div
+          class="
+            column-end-static
+            white-background
+            circular-border
+            width-90
+            height-80
+          "
+        >
+          <p
+            class="
+              body-sm-bold
+              row-start-static
+              primary-text
+              width-100
+              height-100
+              margin-none
+              light-background
+            "
+          >
+            current
+          </p>
+          {% else %}
           <a
             href="/courses/registered/view/{{item.course.id}}/lesson/{{item.id}}"
             class="loader"
@@ -73,6 +108,7 @@
           >
             {{item.title}}
           </p>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
