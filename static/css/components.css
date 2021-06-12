@@ -73,6 +73,13 @@
   padding: 0 10px;
 }
 
+.course-view-img {
+  width: 90%;
+  height: 350px;
+
+  object-fit: cover;
+}
+
 /* form components */
 
 label {
