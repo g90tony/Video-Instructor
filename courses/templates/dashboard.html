@@ -33,7 +33,22 @@
           </p>
         </div>
         <div class="row-start-flexible margin-y-none width-100">
-          <p class="body-sm-bold margin-y-xxs">{{item.course.category}}</p>
+          <p class="body-sm-bold margin-y-none" style="margin: 10px 0 5px 0">
+            {{item.course.category}}
+          </p>
+        </div>
+        <div
+          class="row-spaced-static margin-y-none width-100 margin-y-xxs"
+          style="margin: 0px 0 0px 0"
+        >
+          <p class="body-sm-bold" style="margin: 0px 0 0px 0">Progress</p>
+          <progress
+            id="file"
+            max="100"
+            value="{{item.progress}}"
+            class="margin-x-auto width-50 container-xxs"
+            style="margin: 00px 0 0px 0"
+          ></progress>
         </div>
       </div>
     </div>

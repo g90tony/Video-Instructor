@@ -40,33 +40,6 @@ def browse_registered(request):
     return render(request, 'register_courses.html', {'title': title, 'registered': registered_courses} )
 
 @login_required(login_url='/accounts/login')
-def view_registered(request, lesson_id):
-    
-    current_user = request.user
-    user_profile = Profile.objects.filter(user = current_user).first()
-    title = 'Learn: Video Instructor'
-    current_lesson = Lesson.objects.filter(id = lesson_id).first()
-    registered_lessons = Lesson.objects.filter(course = current_lesson.course).all()
-    
-    count = 0
-    end = False
-    next_lesson_obj = ''
-    while end == False :
-        for lesson in registered_lessons:
-            if lesson == current_lesson:
-                next_lesson = count + 1
-                next_lesson_obj = registered_lessons[next_lesson].lesson
-                end = True
-                
-        count = count + 1
-        
-    if next_lesson_obj == None:
-        next_lesson_obj = '/'
-
-        
-    return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': next_lesson_obj,'lessons': registered_lessons,})
-
-@login_required(login_url='/accounts/login')
 def browse_courses(request):
     
     current_user = request.user
@@ -95,11 +68,114 @@ def register_course(request, course_id):
     user_profile = Profile.objects.filter(user=current_user).first() 
     
     new_registration = RegisteredCourses(profile=user_profile, course=course)
-    
     new_registration.save()
+    
+    course_lessons = Lesson.objects.filter(course=course).all()
+    
+    for lesson in course_lessons:
+        new_progression = Progress(profile=user_profile, course=course, lesson=lesson, is_complete=False)
+        new_progression.save()
     
     return redirect('/')
     
+
+@login_required(login_url='/accounts/login')
+def load_lesson(request, register_id):
+    current_user = request.user
+    user_profile = Profile.objects.filter(user = current_user).first()
+
+    registered_course = RegisteredCourses.objects.filter(id = register_id ).first()
+    course = registered_course.course
+    course_id = registered_course.course.id
+    
+    registered_lessons = Progress.objects.filter(course = course, profile = user_profile).all()
+    count = 0
+    end = False
+    next_lesson_obj = ''
+    while end == False :
+        if registered_lessons[count].is_complete == False:
+            next_lesson_id = registered_lessons[count].lesson.id
+            next_lesson_obj = f'/courses/registered/view/{course_id}/lesson/{next_lesson_id}'
+            end = True
+                
+        count = count + 1
+        
+    if next_lesson_obj == None:
+        lesson_id = registered_lessons[0].lesson.id
+        next_lesson_obj = f'/courses/registered/view/{course_id}/lesson/{lesson_id}'
+        
+    return redirect(next_lesson_obj)
+    
+    
+@login_required(login_url='/accounts/login')
+def view_lesson(request, course_id, lesson_id):
+    
+    current_user = request.user
+    user_profile = Profile.objects.filter(user = current_user).first()
+    title = 'Learn: Video Instructor'
+    current_lesson = Lesson.objects.filter(id = lesson_id).first()
+    
+    course = Course.objects.filter(id=course_id).first()
+    registered_lessons = Progress.objects.filter(course = course, profile = user_profile).all()
+    
+    count = 0
+    end = False
+    next_lesson_obj = int()
+    while count > len(registered_lessons) :
+        if registered_lessons[count].lesson == current_lesson:
+            next_lesson = count + 1
+            next_lesson_obj = registered_lessons[next_lesson].lesson.id
+
+            
+            return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': {next_lesson_obj},'lessons': registered_lessons,})
+            
+        count = count + 1
+        
+    if next_lesson_obj == None:
+        next_lesson_obj = '/courses/registered'
+        return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'last_lesson': {next_lesson_obj},'lessons': registered_lessons,})
+
+        
+    return render(request, 'register_courses_view.html', {'title':title, 'current_lesson': current_lesson, 'next_lesson': {next_lesson_obj},'lessons': registered_lessons,})
+
+
+@login_required(login_url='/accounts/login')
+def complete_lesson(request, course_id, lesson_id, next_request,):
+    
+    current_user = request.user
+    
+    user_profile = Profile.objects.filter(user = current_user).first()
+    
+        
+    current_course = Course.objects.filter(id = course_id).first()
+    current_lesson = Lesson.objects.filter(id = lesson_id).first()
+    
+    single_lesson_progress = Progress.objects.filter(profile=user_profile, course=current_course, lesson = current_lesson).first()
+    single_lesson_progress.is_complete = True
+    single_lesson_progress.save()
+    
+    all_lesson_progress = Progress.objects.filter(profile=user_profile, course=current_course).all()
+    
+    count = 0
+    completed = 0
+    
+    for lesson in all_lesson_progress:
+        if lesson.is_complete == True:
+            completed = completed + 1
+            count = count + 1
+            
+        else: 
+            count = count + 1
+            
+    avg_progress = (completed / count)*100
+    
+    registered_course = RegisteredCourses.objects.filter(course = current_course, profile = user_profile).first()
+    
+    registered_course.progress = avg_progress
+    registered_course.save()
+    
+    return redirect(f'/courses/registered/view/{course_id}/lesson/{next_request}')
+
 
 @login_required(login_url='/accounts/login')
 def edit_profile(request):

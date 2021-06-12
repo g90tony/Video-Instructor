@@ -23,8 +23,10 @@ urlpatterns = [
     path('', view=API_ROUTES.index, name='Home'),
     
     path('courses/registered', view=API_ROUTES.browse_registered, name='Browse Registered'),
-    path('course/registered/search', view=API_ROUTES.search_registered, name='Search Registered'),
-    path('courses/registered/view/<int:lesson_id>', view=API_ROUTES.view_registered, name='View Registered'),
+    path('courses/registered/search', view=API_ROUTES.search_registered, name='Search Registered'),
+    path('courses/registered/view/<int:register_id>', view=API_ROUTES.load_lesson, name='View Registered'),
+    path('courses/registered/view/<int:course_id>/lesson/<int:lesson_id>', view=API_ROUTES.view_lesson, name='View Registered'),
+    path('courses/registered/view/<int:course_id>/lesson/<int:lesson_id>/complete/<int:next_request>', view=API_ROUTES.complete_lesson, name='View Registered'),
     path('courses/registered/register/<int:course_id>', view=API_ROUTES.register_course, name='View Registered'),
     
     path('courses/browse', view=API_ROUTES.browse_courses, name='Browse Course'),

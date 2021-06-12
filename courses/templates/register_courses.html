@@ -41,13 +41,21 @@
         </p>
       </div>
       <div class="row-spaced-flexible width-auto">
-        <p class="secondary-text width-30 margin-xs body-sm-bold">Progress</p>
-        <div class="light-background light-border width-50 margin-x-sm">
-          <div
-            class="secondary-background secondary-border {{item.progress}}"
-            style="padding: 2px"
-          ></div>
-        </div>
+        <p class="secondary-text width-30 margin-xs body-sm-bold">
+          {{item.course.category}}
+        </p>
+        <p class="width-30 margin-xs body-sm-bold">
+          {{item.course.created | date:'M Y'}}
+        </p>
+      </div>
+      <div class="row-spaced-flexible width-auto">
+        <p class="width-30 margin-xs body-sm-bold">Progress</p>
+        <progress
+          id="file"
+          max="100"
+          value="{{item.progress}}"
+          class="margin-x-auto width-50 container-xxs"
+        ></progress>
       </div>
 
       <div class="row-end-static width-80 margin-x-auto container-y-xs">

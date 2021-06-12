@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
     <link rel="stylesheet" href="{% static 'css/typography.css' %}" />
     <link rel="stylesheet" href="{% static 'css/utilities.css' %}" />
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
   </head>
   <body class="light-background">
     <div class="main-container">
@@ -97,4 +98,9 @@
       </div>
     </div>
   </body>
+
+  {% block scripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+  {% endblock scripts %}
 </html>
