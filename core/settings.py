@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config 
+from decouple import config
 import cloudinary
 import django_heroku
 import dj_database_url
@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['api.ctstudios.co.ke']
 
 
 # Application definition
@@ -57,11 +57,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    
+
 ]
 
 ROOT_URLCONF = 'core.urls'
-CORS_ORIGIN_ALLOW_ALL = True 
+CORS_ORIGIN_ALLOW_ALL = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -96,7 +96,7 @@ if config('MODE') == 'dev':
     }
 
 else:
-      DATABASES = {
+    DATABASES = {
         'default': dj_database_url.config(
             default=config('DATABASE_URL')
         )
@@ -150,14 +150,14 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configure Django App for Heroku.
-django_heroku.settings(locals()) 
+django_heroku.settings(locals())
 
-#Cloudinary Configurations
-cloudinary.config( 
-    cloud_name= config('CLOUDINARY_CLOUD_NAME'),
-    api_key = config('CLOUDINARY_API_KEY'),
-    api_secret = config('CLOUDINARY_SECRET_KEY'),
-) 
+# Cloudinary Configurations
+cloudinary.config(
+    cloud_name=config('CLOUDINARY_CLOUD_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_SECRET_KEY'),
+)
 
 
 LOGIN_REDIRECT_URL = '/'
